@@ -14,6 +14,6 @@ public class Main {
         Maze maze = new Maze(10, 10);
         AsciiMazePrinter printer = new AsciiMazePrinter(System.out);
         printer.display(maze);
-        
+        System.out.println("==");
     }
 }

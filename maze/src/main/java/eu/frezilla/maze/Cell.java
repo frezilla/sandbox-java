@@ -2,31 +2,32 @@ package eu.frezilla.maze;
 
 public final class Cell {
     
-    private Wall eastWall;
-    private Wall northWall;
-    private Wall southWall;
-    private Wall westWall;
+    private final Wall eastWall;
+    private final Wall northWall;
+    private final Wall southWall;
+    private final Wall westWall;
     
     public Cell() {
-        this.eastWall = Wall.CLOSE;
-        this.northWall = Wall.CLOSE;
-        this.southWall = Wall.CLOSE;
-        this.westWall = Wall.CLOSE;
+        this.eastWall = new Wall();
+        this.northWall = new Wall();
+        this.southWall = new Wall();
+        this.westWall = new Wall();
     }
     
     public Wall getEastWall() {
         return eastWall;
     }
-    
-    public Wall getNortWall() {
+
+    public Wall getNorthWall() {
         return northWall;
     }
-    
+
     public Wall getSouthWall() {
         return southWall;
     }
-    
+
     public Wall getWestWall() {
         return westWall;
     }
+    
 }

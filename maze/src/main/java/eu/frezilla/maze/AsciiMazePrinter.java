@@ -4,70 +4,56 @@ import java.io.PrintStream;
 import java.util.Objects;
 
 public final class AsciiMazePrinter {
-    
+
     private final PrintStream ps;
-    
+
     public AsciiMazePrinter(PrintStream ps) {
         this.ps = Objects.requireNonNull(ps, "Le flux d'affichage est null");
     }
-    
+
     public void display(Maze maze) {
         if (maze != null) {
-            
-            char[][] arrays = new char[maze.getHeight() + 1][maze.getWidth() + 1];
+            char[][] walls = new char[2*maze.getHeight() + 1][2*maze.getWidth() + 1];
             
             for (int j = 0; j < maze.getHeight(); j++) {
                 for (int i = 0; i < maze.getWidth(); i++) {
-                    Cell cell = maze.getCell(i, j);
+                    Cell currentCell = maze.getCell(i, j);
                     
-                    Cell nwCell = null;
-                    Cell nCell = null;
-                    Cell neCell = null;
-                    Cell wCell = null;
-                    Cell eCell = null;
-                    Cell swCell = null;
-                    Cell sCell = null;
-                    Cell seCell = null;
-                    if (j -1 >= 0) {
-                        if (i > 0) nwCell = maze.getCell(i - 1 , j - 1);
-                        nCell = maze.getCell(i, j - 1);
-                        if (i + 1 < maze.getWidth()) neCell = maze.getCell(i + 1, j - 1);
-                    }
+                    Cell nwCell, nCell, neCell, wCell, eCell, swCell, sCell, seCell;
+                    nwCell = nCell = neCell = wCell = eCell = swCell = sCell = seCell = null;
+                    
                     if (i > 0) wCell = maze.getCell(i - 1, j);
                     if (i + 1 < maze.getWidth()) eCell = maze.getCell(i + 1, j);
-                    if (j + 1 < maze.getHeight()) {
-                        if (i > 0) swCell = maze.getCell(i - 1, j + 1);
-                        sCell = maze.getCell(i, j + 1);
-                        if (i + 1 < maze.getWidth()) seCell = maze.getCell(i, j);
-                    }
+                    if (j > 0) nCell = maze.getCell(i, j - 1);
+                    if (j + 1 < maze.getHeight()) sCell = maze.getCell(i, j + 1);
+                    if (i > 0 && j > 0) nwCell = maze.getCell(i - 1, j - 1);
+                    if (i + 1 < maze.getWidth() && j + 1 < maze.getHeight()) seCell = maze.getCell(i + 1, j + 1);
+                    if (i > 0 && j + 1 < maze.getHeight()) swCell = maze.getCell(i - 1, j + 1);
+                    if (i + 1 < maze.getWidth() && j > 0) neCell = maze.getCell(i + 1, j - 1);
                     
+                    int xWall = 2 * i;
+                    int yWall = 2 * j;
                     
-                    
+                    if (nwCell == null && currentCell.getNorthWall().isClosed() && currentCell.getWestWall().isClosed()) walls[yWall][xWall] = '┌';
+                    else walls[yWall][xWall] = ' ';
+                    walls[yWall][xWall + 1] = currentCell.getNorthWall().isClosed() ? '─' : ' ';
+                    if (neCell == null && currentCell.getNorthWall().isClosed() && currentCell.getEastWall().isClosed()) walls[yWall][xWall + 2] = '┐';
+                    else walls[yWall][xWall + 2] = ' ';
+                    walls[yWall + 1][xWall] = currentCell.getWestWall().isClosed() ? '│' : ' ';
+                    walls[yWall + 1][xWall + 1] = ' ';
+                    walls[yWall + 1][xWall + 2] = currentCell.getEastWall().isClosed() ? '│' : ' ';
+                    walls[yWall + 2][xWall] = ' ';
+                    walls[yWall + 2][xWall + 1] = currentCell.getSouthWall().isClosed() ? '─' : ' ';
+                    walls[yWall + 2][xWall + 2] = ' ';
                 }
             }
             
+            for (int j = 0; j < 2*maze.getHeight() + 1; j++) {
+                for (int i = 0; i < 2*maze.getWidth() + 1; i++) {
+                    ps.print(walls[j][i]);
+                }
+                ps.println();
+            }
         }
     }
-    
-    private char[][] formatCell(Cell cell) {
-        char[][] charArray = new char[3][3];
-        
-        Wall eastWall = cell.getEastWall();
-        Wall northWall = cell.getNortWall();
-        Wall southWall = cell.getSouthWall();
-        Wall westWall = cell.getWestWall();
-        
-        if (northWall == Wall.CLOSE && westWall == Wall.CLOSE) charArray[0][0] = '╔';
-        if (northWall == Wall.CLOSE) charArray[0][1] = '═';
-        if (northWall == Wall.CLOSE && eastWall == Wall.CLOSE) charArray[0][2] = '╗';
-        if (westWall == Wall.CLOSE) charArray[1][0] = '║';
-        charArray[1][1] = ' ';
-        if (eastWall == Wall.CLOSE) charArray[1][2] = '║';
-        if (southWall == Wall.CLOSE && westWall == Wall.CLOSE) charArray[2][0] = '╚';
-        if (southWall == Wall.CLOSE) charArray[2][1] = '═';
-        if (southWall == Wall.CLOSE && eastWall == Wall.CLOSE) charArray[2][2] = '╝';
-        
-        return charArray;
-    }
-    
 }
