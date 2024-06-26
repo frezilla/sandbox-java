@@ -20,8 +20,9 @@ public class HelloWorld {
     }
 
     private void init() {
-        GLFWErrorCallback.createPrint(System.err).set();
-
+        GLFWErrorCallback errorCallBack = GLFWErrorCallback.createPrint(System.err).set();
+        GLFW.glfwSetErrorCallback(errorCallBack);
+        
         if (!GLFW.glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
@@ -70,21 +71,16 @@ public class HelloWorld {
 
     private void loop() {
         GL.createCapabilities();
-        
+
         GL11.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
-		// Run the rendering loop until the user has attempted to close
-		// the window or has pressed the ESCAPE key.
-		while ( !GLFW.glfwWindowShouldClose(window) ) {
-			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+        while (!GLFW.glfwWindowShouldClose(window)) {
+            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-			 
-                        GLFW.glfwSwapBuffers(window); // swap the color buffers
+            GLFW.glfwSwapBuffers(window);
 
-			// Poll for window events. The key callback above will only be
-			// invoked during this call.
-			GLFW.glfwPollEvents();
-		}
+            GLFW.glfwPollEvents();
+        }
     }
 
     private void run() {
