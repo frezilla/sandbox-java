@@ -11,9 +11,8 @@ package eu.frezilla.maze;
 public class Main {
 
     public static void main(String[] args) {
-        Maze maze = new Maze(10, 10);
+        Maze maze = new Maze(1, 1);
         AsciiMazePrinter printer = new AsciiMazePrinter(System.out);
         printer.display(maze);
-        System.out.println("==");
     }
 }

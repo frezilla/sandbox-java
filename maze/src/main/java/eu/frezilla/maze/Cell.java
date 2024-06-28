@@ -29,6 +29,22 @@ public final class Cell {
     public Cell getWestCell() {
         return westCell;
     }
+    
+    public boolean hasEastCell() {
+        return eastCell == null;
+    }
+    
+    public boolean hasNorthCell() {
+        return northCell == null;
+    }
+    
+    public boolean hasSouthCell() {
+        return southCell == null;
+    }
+    
+    public boolean hasWestCell() {
+        return westCell == null;
+    }
 
     void setEastCell(Cell eastCell) {
         this.eastCell = eastCell;
