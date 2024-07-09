@@ -31,19 +31,19 @@ public final class Cell {
     }
     
     public boolean hasEastCell() {
-        return eastCell == null;
+        return eastCell != null;
     }
     
     public boolean hasNorthCell() {
-        return northCell == null;
+        return northCell != null;
     }
     
     public boolean hasSouthCell() {
-        return southCell == null;
+        return southCell != null;
     }
     
     public boolean hasWestCell() {
-        return westCell == null;
+        return westCell != null;
     }
 
     void setEastCell(Cell eastCell) {

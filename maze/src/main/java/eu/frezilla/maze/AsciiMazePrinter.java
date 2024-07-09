@@ -17,35 +17,52 @@ public final class AsciiMazePrinter {
             int mazeWidth = maze.getWidth();
             
             int mazeAsciiHeight = 2 * mazeHeight + 1;
-            int mazeAsciiWidth = 4 * mazeWidth + 1;
+            int mazeAsciiWidth = 3 * mazeWidth + 1;
             char[][] mazeAscii = new char[mazeAsciiHeight][mazeAsciiWidth];
             
             for (int j = 0; j < mazeHeight; j++) {
                 for (int i = 0; i < mazeWidth; i++) {
                     Cell currentCell = maze.getCell(i, j);
                     
-                    int xWall = 4 * i;
+                    int xWall = 3 * i;
                     int yWall = 2 * j;
                     
-                    if (j == 0) {
-                        if (i == 0) mazeAscii[yWall][xWall] = '╔';
-                        if (i + 1 == mazeWidth) mazeAscii[yWall][xWall + 4] = '╗';
-                        mazeAscii[yWall][xWall + 1] = '═';
-                        mazeAscii[yWall][xWall + 2] = '═';
-                        mazeAscii[yWall][xWall + 3] = '═';
-                    } 
-                    if (i == 0) mazeAscii[yWall + 1][xWall] = '║';
-                    if (i + 1 == mazeWidth) mazeAscii[yWall + 1][xWall + 4] = '║';
-                    if (j + 1 == mazeHeight) {
-                        if (i == 0) mazeAscii[yWall + 2][xWall] = '╚';
-                        if (i + 1 == mazeWidth) mazeAscii[yWall + 2][xWall + 4] = '╝';
-                        mazeAscii[yWall + 2][xWall + 1] = '═';
-                        mazeAscii[yWall + 2][xWall + 2] = '═';
-                        mazeAscii[yWall + 2][xWall + 3] = '═';
-                    }
+                    mazeAscii[yWall][xWall] = '+';
+                    mazeAscii[yWall][xWall + 3] = '+';
+                    mazeAscii[yWall + 2][xWall] = '+';
+                    mazeAscii[yWall + 2][xWall + 3] = '+';
                     mazeAscii[yWall + 1][xWall + 1] = ' ';
                     mazeAscii[yWall + 1][xWall + 2] = ' ';
-                    mazeAscii[yWall + 1][xWall + 3] = ' ';
+                    
+                    if (currentCell.hasNorthCell()) {
+                        mazeAscii[yWall][xWall + 1] = ' ';
+                        mazeAscii[yWall][xWall + 2] = ' ';
+                    } else {
+                        mazeAscii[yWall][xWall + 1] = '-';
+                        mazeAscii[yWall][xWall + 2] = '-';
+                    }
+                    
+                    if (currentCell.hasSouthCell()) {
+                        mazeAscii[yWall + 2][xWall + 1] = ' ';
+                        mazeAscii[yWall + 2][xWall + 2] = ' ';
+                    } else {
+                        mazeAscii[yWall + 2][xWall + 1] = '-';
+                        mazeAscii[yWall + 2][xWall + 2] = '-';
+                    }
+                    
+                    if (currentCell.hasWestCell()) {
+                        mazeAscii[yWall + 1][xWall] = ' ';
+                    } else {
+                        mazeAscii[yWall + 1][xWall] = '|';
+                    }
+                    
+                    if (currentCell.hasEastCell()) {
+                        mazeAscii[yWall + 1][xWall + 3] = ' ';
+                    } else {
+                        mazeAscii[yWall + 1][xWall + 3] = '|';
+                    }
+                    
+                    
                 }
             }
             
