@@ -1,5 +1,7 @@
-package eu.frezilla.maze;
+package eu.frezilla.maze.viewer;
 
+import eu.frezilla.maze.core.Cell;
+import eu.frezilla.maze.core.Maze;
 import java.io.PrintStream;
 import java.util.Objects;
 

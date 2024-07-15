@@ -4,6 +4,9 @@
 
 package eu.frezilla.maze;
 
+import eu.frezilla.maze.viewer.AsciiMazePrinter;
+import eu.frezilla.maze.core.Maze;
+
 /**
  *
  * @author f.balme

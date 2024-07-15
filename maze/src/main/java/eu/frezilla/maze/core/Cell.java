@@ -1,4 +1,4 @@
-package eu.frezilla.maze;
+package eu.frezilla.maze.core;
 
 public final class Cell {
 

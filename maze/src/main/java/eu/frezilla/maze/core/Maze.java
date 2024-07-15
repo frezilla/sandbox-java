@@ -1,9 +1,9 @@
-package eu.frezilla.maze;
+package eu.frezilla.maze.core;
 
-import static eu.frezilla.maze.Direction.EAST;
-import static eu.frezilla.maze.Direction.NORTH;
-import static eu.frezilla.maze.Direction.SOUTH;
-import static eu.frezilla.maze.Direction.WEST;
+import static eu.frezilla.maze.core.Direction.EAST;
+import static eu.frezilla.maze.core.Direction.NORTH;
+import static eu.frezilla.maze.core.Direction.SOUTH;
+import static eu.frezilla.maze.core.Direction.WEST;
 import java.util.ArrayList;
 import java.util.List;
 
