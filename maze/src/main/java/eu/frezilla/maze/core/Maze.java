@@ -43,11 +43,11 @@ public final class Maze {
                 }
                 Cell cell2 = getCell(i + 1, j);
                 if (close) {
-                    cell1.setEastCell(cell2);
-                    cell2.setWestCell(cell1);
-                } else {
                     cell1.setEastCell(null);
                     cell2.setWestCell(null);
+                } else {
+                    cell1.setEastCell(cell2);
+                    cell2.setWestCell(cell1);
                 }
                 break;
             }
@@ -57,11 +57,11 @@ public final class Maze {
                 }
                 Cell cell2 = getCell(i, j - 1);
                 if (close) {
+                    cell1.setNorthCell(null);
+                    cell2.setSouthCell(null);                    
+                } else {
                     cell1.setNorthCell(cell2);
                     cell2.setSouthCell(cell1);
-                } else {
-                    cell1.setNorthCell(null);
-                    cell2.setSouthCell(null);
                 }
                 break;
             }
@@ -71,11 +71,11 @@ public final class Maze {
                 }
                 Cell cell2 = getCell(i, j + 1);
                 if (close) {
-                    cell1.setSouthCell(cell2);
-                    cell2.setNorthCell(cell1);
-                } else {
                     cell1.setSouthCell(null);
                     cell2.setNorthCell(null);
+                } else {
+                    cell1.setSouthCell(cell2);
+                    cell2.setNorthCell(cell1);
                 }
                 break;
             }
@@ -85,11 +85,11 @@ public final class Maze {
                 }
                 Cell cell2 = getCell(i - 1, j);
                 if (close) {
-                    cell1.setWestCell(cell2);
-                    cell2.setEastCell(cell1);
-                } else {
                     cell1.setWestCell(null);
                     cell2.setEastCell(null);
+                } else {
+                    cell1.setWestCell(cell2);
+                    cell2.setEastCell(cell1);
                 }
                 break;
             }
