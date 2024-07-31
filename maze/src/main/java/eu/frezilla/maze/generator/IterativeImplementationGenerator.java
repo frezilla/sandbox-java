@@ -9,7 +9,9 @@ import static eu.frezilla.maze.core.Direction.WEST;
 import eu.frezilla.maze.core.Maze;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -21,17 +23,22 @@ public final class IterativeImplementationGenerator implements MazeGenerator {
         
         List<IterativeCell> unvisitedCells = new ArrayList<>(width * height);
         List<IterativeCell> allCells = new ArrayList<>(width * height);
+        Map<Integer, List<IterativeCell>> cellsByGroupIdMap = new HashMap<>();
         
         for (int j = 0; j < maze.getHeight(); j++) {
             for (int i = 0 ; i < maze.getWidth(); i++) {
+                int groupId = (i + j * maze.getHeight());
                 IterativeCell iterativeCell = 
                         new IterativeCell(
                                 maze.getCell(i, j), 
                                 i, 
                                 j, 
-                                (i + j * maze.getHeight())
+                                groupId
                         );
-                
+                List<IterativeCell> cells = new ArrayList<>();
+                cells.add(iterativeCell);
+                cellsByGroupIdMap.put(groupId, cells);
+                        
                 allCells.add(iterativeCell);
             }
         }
@@ -65,6 +72,23 @@ public final class IterativeImplementationGenerator implements MazeGenerator {
                 int indexDirection = rand.nextInt(directions.size());
                 Direction direction = directions.get(indexDirection);
                 maze.openCrossing(i, j, direction);
+                
+                switch (direction) {
+                    case EAST:
+                        eastCell.getGroupId();
+                        break;
+                    case NORTH:
+                        northCell.getGroupId();
+                        break;                        
+                    case SOUTH:
+                        soutCell.getGroupId();
+                        break;
+                    case WEST:
+                        westCell.getGroupId();
+                        break;                        
+                    default:
+                        throw new AssertionError();
+                }
             }
         }
         
